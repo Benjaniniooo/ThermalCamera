@@ -30,5 +30,7 @@ int main(){
             if((i + 1) % 8 == 0)
                 std::cout << std::endl;
         }
+
+        std::cout << std::endl;
     }
 }
