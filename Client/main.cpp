@@ -25,7 +25,7 @@ int main(){
             std::float32_t f;
             std::memcpy(&f, &data[i * 4], sizeof(std::float32_t));
             
-            std::cout << f << std::endl;
+            std::cout << f;
 
             if((i + 1) % 8 == 0)
                 std::cout << std::endl;
