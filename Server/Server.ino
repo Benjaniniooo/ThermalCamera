@@ -1,10 +1,15 @@
 #include <WiFi.h>
 
+#define MIN_TEMP 18
+#define MAX_TEMP 32
+
 const char* SSID = "AMG88xx";
 const char* passphrase = "AMG-8833";
 const int port = 80;
 
 WiFiServer server;
+
+float values[64];
 
 void setup(){
     Serial.begin(115200);
@@ -27,7 +32,11 @@ void loop(){
         Serial.println("New Client!");
 
         while(client.connected()){
-            client.write((byte*) &amg.m_pixels, 4 * 64);
+            for(size_t i = 0; i < 64; i++){
+              values[i] = map(random(255), 0, 255, MIN_TEMP, MAX_TEMP);
+            }
+
+            client.write((byte*) &values, 4 * 64);
 
             delay(500);
         }

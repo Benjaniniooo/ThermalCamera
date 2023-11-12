@@ -20,15 +20,15 @@ int main(){
             std::cout << "Error receiving packet!" << std::endl;
             while(true);
         }
-    }
 
-    for(size_t i = 0; i < 64; i++){
-        std::float32_t f;
-        std::memcpy(&f, &data[i * 4], sizeof(std::float32_t));
-        
-        std::cout << f << std::endl;
+        for(size_t i = 0; i < 64; i++){
+            std::float32_t f;
+            std::memcpy(&f, &data[i * 4], sizeof(std::float32_t));
+            
+            std::cout << f << std::endl;
 
-        if((i + 1) % 8 == 0)
-            std::cout << std::endl;
+            if((i + 1) % 8 == 0)
+                std::cout << std::endl;
+        }
     }
 }
