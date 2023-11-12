@@ -1,48 +1,36 @@
 #include <WiFi.h>
 
-#include "./include/AMG88xx.hpp"
-
-const char* SSID = "AMG88xx";
-const char* passphrase = "AMG-8833";
-const int port = 80;
-
-WiFiServer server;
+#include "./src/AMG88xx.hpp"
+#include "./src/Network.hpp"
 
 AMG88xx::AMG88xx amg;
+Network::Network net;
 
 void setup(){
     Serial.begin(115200);
 
-    if(!WiFi.softAP(SSID, passphrase)){
-        log_e("Cannon create Soft Access Point");
+    if(!net.createAP())
         while(true);
-    }
 
-    Serial.print("IP: ");
-    Serial.println(WiFi.softAPIP());
+    net.createServer();
 
-    server.begin(port);
-
-    if(!amg.begin()){
+    if(!amg.begin())
         while(true);
-    }
 }
 
 void loop(){
-    WiFiClient client = server.available();
-
-    if(client){
+    if(net.newClient()){
         Serial.println("New Client!");
 
-        while(client.connected()){
+        while(net.clientIsConnected()){
             amg.pollPixels();
 
-            client.write((byte*) &amg.m_pixels, 4 * 64);
+            net.sentPacket(amg.m_pixels, sizeof(float) * 64);
 
             delay(500);
         }
 
-        client.stop();
+        net.endClient();
         Serial.println("Client disconnected!");
     }
 }
