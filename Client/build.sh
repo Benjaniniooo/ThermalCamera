@@ -43,8 +43,13 @@ if \
     \
     -lsfml-audio -lsfml-network -lsfml-graphics -lsfml-window -lsfml-system \
     \
+    -lGL -lpthread \
+    \
     -I ./include/ \
     ./include/*.cpp \
+    \
+    -I ./include/imgui/ \
+    ./include/imgui/*.cpp \
     \
     main.cpp \
     \
