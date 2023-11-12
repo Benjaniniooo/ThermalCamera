@@ -1,47 +1,36 @@
 #include <WiFi.h>
 
-#define MIN_TEMP 18
-#define MAX_TEMP 32
+#include "./src/AMG88xx.hpp"
+#include "./src/Network.hpp"
 
-const char* SSID = "AMG88xx";
-const char* passphrase = "AMG-8833";
-const int port = 80;
-
-WiFiServer server;
-
-float values[64];
+AMG88xx::AMG88xx amg;
+Network::Network net;
 
 void setup(){
     Serial.begin(115200);
 
-    if(!WiFi.softAP(SSID, passphrase)){
-        log_e("Cannon create Soft Access Point");
+    if(!net.createAP())
         while(true);
-    }
 
-    Serial.print("IP: ");
-    Serial.println(WiFi.softAPIP());
+    net.createServer();
 
-    server.begin(port);
+    if(!amg.begin())
+        while(true);
 }
 
 void loop(){
-    WiFiClient client = server.available();
-
-    if(client){
+    if(net.newClient()){
         Serial.println("New Client!");
 
-        while(client.connected()){
-            for(size_t i = 0; i < 64; i++){
-              values[i] = map(random(255), 0, 255, MIN_TEMP, MAX_TEMP);
-            }
+        while(net.clientIsConnected()){
+            amg.pollPixels();
 
-            client.write((byte*) &values, 4 * 64);
+            net.sentPacket(amg.m_pixels, sizeof(float) * 64);
 
             delay(500);
         }
 
-        client.stop();
+        net.endClient();
         Serial.println("Client disconnected!");
     }
 }
