@@ -24,7 +24,7 @@ void setup(){
     server.begin(port);
 
     if(!amg.begin()){
-        log_e("Cannot communicate with AMG8833");
+        while(true);
     }
 }
 
