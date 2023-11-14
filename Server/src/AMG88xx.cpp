@@ -19,8 +19,4 @@ namespace AMG88xx{
     void AMG88xx::pollPixels(){
         m_amg8833.readPixels(m_pixels);
     }
-
-    float AMG88xx::getPixel(const size_t x, const size_t y){
-        return m_pixels[x * AMG88xx_PIXEL_WIDTH + y];
-    }
 }

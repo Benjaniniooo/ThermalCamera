@@ -81,7 +81,7 @@ int main(){
 
             sf::RectangleShape rect(sf::Vector2f(100, 100));
             rect.setPosition((i % 8) * 100, ((int) (i / 8)) * 100);
-            rect.setFillColor(hsv(lerp(18, 32, 0, 320, f), 1, 1));
+            rect.setFillColor(hsv(lerp(18, 32, 240, 0, f), 1, 1));
 
             window.draw(rect);
         }
