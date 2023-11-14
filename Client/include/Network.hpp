@@ -1,3 +1,14 @@
+////////////////////////////////////////////////////////////
+/// \file Network.hpp
+/// \author Benjaniniooo (39649250+Benjaniniooo@users.noreply.github.com)
+/// \brief SFML Network Wrapper
+/// \version 0.1
+/// \date 2023-11-14
+/// 
+/// @copyright Copyright (c) 2023
+/// 
+////////////////////////////////////////////////////////////
+
 #pragma once
 
 #include <SFML/Network.hpp>
