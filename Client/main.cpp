@@ -10,19 +10,31 @@
 
 #include "Network.hpp"
 
-/*Network::Network network;
+Network::Network network;
+std::uint8_t data[Network::MAX_PACKET_SIZE];
+size_t recv;
+
+
+sf::RenderWindow window;
 
 int main(){
     network.connect();
 
-    std::uint8_t data[Network::MAX_PACKET_SIZE];
-    size_t recv;
+    window.create(sf::VideoMode(800, 800), "AMG88xx");
 
-    while(true){
+    while(window.isOpen()){
+        sf::Event event;
+        while(window.pollEvent(event)){
+            if(event.type == sf::Event::Closed)
+                window.close();
+        }
+
         if(!network.receive(data, &recv)){
             std::cout << "Error receiving packet!" << std::endl;
             while(true);
         }
+
+        window.clear();
 
         for(size_t i = 0; i < 64; i++){
             std::float32_t f;
@@ -32,13 +44,22 @@ int main(){
 
             if((i + 1) % 8 == 0)
                 std::cout << std::endl;
+
+            sf::RectangleShape rect(sf::Vector2f(100, 100));
+            rect.setPosition((i % 8) * 100, ((int) (i / 8)) * 100);
+
+            window.draw(rect);
         }
 
         std::cout << std::endl;
-    }
-}*/
 
-int main() {
+        window.display();
+    }
+
+    window.close();
+}
+
+/*int main() {
     sf::RenderWindow window(sf::VideoMode(640, 480), "ImGui + SFML = <3");
     window.setFramerateLimit(60);
     ImGui::SFML::Init(window);
@@ -70,4 +91,4 @@ int main() {
     }
 
     ImGui::SFML::Shutdown();
-}
+}*/

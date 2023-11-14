@@ -1,5 +1,3 @@
-#include <WiFi.h>
-
 #include "./src/Network.hpp"
 
 #define MIN_TEMP 18
