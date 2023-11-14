@@ -5,6 +5,7 @@ namespace Network
     Network::Network(){};
 
     bool Network::connect(const sf::IpAddress ip_address, int port){
+        m_tcpSocket.setBlocking(false);
         if(m_tcpSocket.connect(ip_address, port) != sf::Socket::Done){
             return false;
         }

@@ -56,6 +56,7 @@ int main(){
 
     window.create(sf::VideoMode(800, 800), "AMG88xx");
 
+
     while(window.isOpen()){
         sf::Event event;
         while(window.pollEvent(event)){
@@ -65,7 +66,28 @@ int main(){
 
         window.clear();
 
-        if(network.receive(data, &recv) == sf::Socket::Done){
+        auto val = network.receive(data, &recv);
+
+        switch (val)
+        {
+        case sf::Socket::Done:
+            std::cout << "sf::Socket::Done";
+            break;
+        case sf::Socket::NotReady:
+            std::cout << "sf::Socket::NotReady";
+            break;
+        case sf::Socket::Partial:
+            std::cout << "sf::Socket::Partial";
+            break;
+        case sf::Socket::Disconnected:
+            std::cout << "sf::Socket::Disconnected";
+            break;
+        default:
+            std::cout << "DEFAULT" << val;
+            break;
+        }
+
+        if(val == sf::Socket::Done){
             for(size_t i = 0; i < 64; i++){
                 std::float32_t f;
                 std::memcpy(&f, &data[i * 4], sizeof(std::float32_t));
@@ -84,7 +106,7 @@ int main(){
 
             std::cout << std::endl;
         }
-
+        std::cout << "YEP";
         window.display();
     }
 
