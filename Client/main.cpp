@@ -63,30 +63,27 @@ int main(){
                 window.close();
         }
 
-        if(!network.receive(data, &recv)){
-            std::cout << "Error receiving packet!" << std::endl;
-            while(true);
-        }
-
         window.clear();
 
-        for(size_t i = 0; i < 64; i++){
-            std::float32_t f;
-            std::memcpy(&f, &data[i * 4], sizeof(std::float32_t));
+        if(network.receive(data, &recv) == sf::Socket::Done){
+            for(size_t i = 0; i < 64; i++){
+                std::float32_t f;
+                std::memcpy(&f, &data[i * 4], sizeof(std::float32_t));
             
-            std::cout << f << " ";
+                std::cout << f << " ";
 
-            if((i + 1) % 8 == 0)
-                std::cout << std::endl;
+                if((i + 1) % 8 == 0)
+                    std::cout << std::endl;
 
-            sf::RectangleShape rect(sf::Vector2f(100, 100));
-            rect.setPosition((i % 8) * 100, ((int) (i / 8)) * 100);
-            rect.setFillColor(hsv(lerp(18, 32, 240, 0, f), 1, 1));
+                sf::RectangleShape rect(sf::Vector2f(100, 100));
+                rect.setPosition((i % 8) * 100, ((int) (i / 8)) * 100);
+                rect.setFillColor(hsv(lerp(18, 32, 240, 0, f), 1, 1));
 
-            window.draw(rect);
+                window.draw(rect);
+            }
+
+            std::cout << std::endl;
         }
-
-        std::cout << std::endl;
 
         window.display();
     }
