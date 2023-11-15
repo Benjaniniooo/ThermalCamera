@@ -1,11 +1,10 @@
+#include <WiFi.h>
+
+#include "./src/AMG88xx.hpp"
 #include "./src/Network.hpp"
 
-#define MIN_TEMP 18
-#define MAX_TEMP 32
-
+AMG88xx::AMG88xx amg;
 Network::Network net;
-
-float values[64];
 
 void setup(){
     Serial.begin(115200);
@@ -14,6 +13,9 @@ void setup(){
         while(true);
 
     net.createServer();
+
+    if(!amg.begin())
+        while(true);
 }
 
 void loop(){
@@ -21,11 +23,9 @@ void loop(){
         Serial.println("New Client!");
 
         while(net.clientIsConnected()){
-            for(size_t i = 0; i < 64; i++){
-                values[i] = map(random(255), 0, 255, MIN_TEMP, MAX_TEMP);
-            }
+            amg.pollPixels();
 
-            net.sentPacket(values, sizeof(float) * 64);
+            net.sentPacket(amg.m_pixels, sizeof(float) * 64);
 
             delay(500);
         }

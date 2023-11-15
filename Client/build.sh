@@ -38,7 +38,7 @@ printf "${FYellow}${BYellow} Compiling... ${TClear} ${NL}${NL}"
 if \
     g++ \
     \
-    -std=c++2b -Wall -Ofast \
+    -std=c++2b -Wall \
     \
     \
     -lsfml-audio -lsfml-network -lsfml-graphics -lsfml-window -lsfml-system \
