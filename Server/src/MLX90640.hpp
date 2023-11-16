@@ -22,6 +22,9 @@ namespace MLX90640{
                         const mlx90640_mode_t mode = MLX90640_CHESS,
                         const mlx90640_resolution_t resolution = MLX90640_ADC_18BIT,
                         const mlx90640_refreshrate_t refreshRate = MLX90640_2_HZ);
+            bool pollPixels();
+
+            float m_pixels[MLX90640_PIXEL_WIDTH * MLX90640_PIXEL_HEIGHT];
 
         private:
             TwoWire m_i2c;
