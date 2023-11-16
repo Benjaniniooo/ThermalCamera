@@ -25,6 +25,7 @@ namespace AMG88xx{
     const uint8_t AMG88xx_ADDR = 0x69;
 
     const uint8_t AMG88xx_PIXEL_WIDTH = 8;
+    const uint8_t AMG88xx_PIXEL_HEIGHT = 8;
 
 
     ////////////////////////////////////////////////////////////

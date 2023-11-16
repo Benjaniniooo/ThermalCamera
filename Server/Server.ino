@@ -25,7 +25,7 @@ void loop(){
         while(net.clientIsConnected()){
             amg.pollPixels();
 
-            net.sentPacket(amg.m_pixels, sizeof(float) * 64);
+            net.sentPacket(amg.m_pixels, sizeof(float) * AMG88xx::AMG88xx_PIXEL_WIDTH * AMG88xx::AMG88xx_PIXEL_HEIGHT);
 
             delay(500);
         }
