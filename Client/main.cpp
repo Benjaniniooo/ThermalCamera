@@ -14,6 +14,9 @@ Network::Network network;
 std::uint8_t data[Network::MAX_PACKET_SIZE];
 size_t recv;
 
+int width = 32;
+int height = 24;
+
 float lerp(float x1, float x2, float y1, float y2, float v){
     return (v - x1) * (y2 - y1) / (x2 - x1) + y1;
 }
@@ -72,23 +75,41 @@ int main(){
         auto val = network.receive(data, &recv);
 
         if(val == sf::Socket::Done){
-            for(size_t i = 0; i < 64; i++){
+            /*for(size_t i = 0; i < width * height; i++){
                 std::float32_t f;
                 std::memcpy(&f, &data[i * 4], sizeof(std::float32_t));
-            
-                std::cout << f << " ";
 
-                if((i + 1) % 8 == 0)
-                    std::cout << std::endl;
+                float xsize = 800 / width;
+                float ysize = 800 / height;
+                sf::RectangleShape rect(sf::Vector2f(xsize, ysize));
 
-                sf::RectangleShape rect(sf::Vector2f(100, 100));
-                rect.setPosition((i % 8) * 100, ((int) (i / 8)) * 100);
+                float xposition = (i % width);
+                float yposition = ((int)(i / height));
+                rect.setPosition(xposition * xsize, yposition * ysize);
                 rect.setFillColor(hsv(lerp(17, 30, 240, 0, f), 1, 1));
 
-                window.draw(rect);
-            }
+                std::cout << i << " " << xposition << " " << yposition << std::endl; 
 
-            std::cout << std::endl;
+                window.draw(rect);
+
+                if((i + 1) % width == 0)
+                    std::cout << std::endl;
+            }*/
+            float xsize = 800 / width;
+            float ysize = 800 / height;
+
+            for(size_t x = 0; x < width; x++){
+                for(size_t y = 0; y < height; y++){
+                    std::float32_t f;
+                    std::memcpy(&f, &data[(y * width + x) * 4], sizeof(std::float32_t));
+
+                    sf::RectangleShape rect(sf::Vector2f(xsize, ysize));
+                    rect.setPosition(x * xsize, y * ysize);
+                    rect.setFillColor(hsv(lerp(17, 30, 240, 0, f), 1, 1));
+
+                    window.draw(rect);
+                }
+            }
         }
         window.display();
     }

@@ -21,7 +21,7 @@ namespace Network
     const sf::IpAddress SERVER_IP_ADDRESS("192.168.4.1");
     const int SERVER_PORT = 80;
 
-    const int MAX_PACKET_SIZE = 4 * 64;
+    const int MAX_PACKET_SIZE = 4 * 32 * 24;
 
     class Network{
         public:
