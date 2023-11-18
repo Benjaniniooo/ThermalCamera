@@ -114,6 +114,8 @@ int main(){
             }
         }
         window.display();
+
+        sf::sleep(sf::seconds(0.01f));
     }
 
     window.close();
