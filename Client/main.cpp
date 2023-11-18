@@ -74,6 +74,8 @@ int main(){
 
         auto val = network.receive(data, &recv);
 
+        std::cout << recv << std::endl;
+
         if(val == sf::Socket::Done){
             /*for(size_t i = 0; i < width * height; i++){
                 std::float32_t f;
