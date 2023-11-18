@@ -12,6 +12,7 @@
 #pragma once
 
 #include <SFML/Network.hpp>
+#include <SFML/System.hpp>
 
 #include <iostream>
 #include <cinttypes>
@@ -27,7 +28,7 @@ namespace Network
         public:
             Network();
 
-            bool connect(const sf::IpAddress ip_address = SERVER_IP_ADDRESS, const int port = SERVER_PORT);
+            bool connect(const sf::IpAddress ip_address = SERVER_IP_ADDRESS, const int port = SERVER_PORT, const sf::Time timeOut = sf::seconds(2.f));
 
             bool receive(std::uint8_t* data, size_t* recv, int max_packet_size = MAX_PACKET_SIZE);
         private:

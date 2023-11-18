@@ -4,9 +4,9 @@ namespace Network
 {
     Network::Network(){};
 
-    bool Network::connect(const sf::IpAddress ip_address, int port){
+    bool Network::connect(const sf::IpAddress ip_address, const int port, const sf::Time timeOut){
         m_tcpSocket.setBlocking(false);
-        if(m_tcpSocket.connect(ip_address, port) != sf::Socket::Done){
+        if(m_tcpSocket.connect(ip_address, port, timeOut) != sf::Socket::Done){
             return false;
         }
 

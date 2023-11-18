@@ -55,7 +55,7 @@ sf::Color hsv(int hue, float sat, float val)
 sf::RenderWindow window;
 
 int main(){
-    if(network.connect() != sf::Socket::Done){
+    if(!network.connect()){
         std::cout << "Error connecting" << std::endl;
         while(true);
     }
