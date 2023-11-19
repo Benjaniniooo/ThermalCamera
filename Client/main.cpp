@@ -76,26 +76,6 @@ int main(){
         std::cout << recv << std::endl;
 
         if(val == sf::Socket::Done){
-            /*for(size_t i = 0; i < width * height; i++){
-                std::float32_t f;
-                std::memcpy(&f, &data[i * 4], sizeof(std::float32_t));
-
-                float xsize = 800 / width;
-                float ysize = 800 / height;
-                sf::RectangleShape rect(sf::Vector2f(xsize, ysize));
-
-                float xposition = (i % width);
-                float yposition = ((int)(i / height));
-                rect.setPosition(xposition * xsize, yposition * ysize);
-                rect.setFillColor(hsv(lerp(17, 30, 240, 0, f), 1, 1));
-
-                std::cout << i << " " << xposition << " " << yposition << std::endl; 
-
-                window.draw(rect);
-
-                if((i + 1) % width == 0)
-                    std::cout << std::endl;
-            }*/
             float xsize = 800 / width;
             float ysize = 800 / height;
 
