@@ -37,10 +37,8 @@ namespace Network{
             Network();
 
             ////////////////////////////////////////////////////////////
-            /// \brief create a Soft Access Point
+            /// \brief Create a Soft Access Point on the ESP32 that any client can connect to
             ///
-            /// Create a Soft Access Point on the ESP32 that any client can connect to
-            /// 
             /// \param ssid         service set - unique name for the WLAN created
             /// \param passphrase   password for the WLAN
             /// \return true        if the creation of a SoftAP was successful

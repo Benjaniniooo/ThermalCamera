@@ -9,7 +9,6 @@ namespace AMG88xx{
         m_i2c.begin(sda, scl);
 
         if(!m_amg8833.begin(addr, &m_i2c)){
-            log_e("AMG88xx did not connect via I2C!");
             return false;
         }
 

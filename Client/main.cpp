@@ -21,8 +21,7 @@ float lerp(float x1, float x2, float y1, float y2, float v){
     return (v - x1) * (y2 - y1) / (x2 - x1) + y1;
 }
 
-sf::Color hsv(int hue, float sat, float val)
-{
+sf::Color hsv(int hue, float sat, float val){
   hue %= 360;
   while(hue<0) hue += 360;
 
@@ -57,7 +56,7 @@ sf::RenderWindow window;
 int main(){
     if(!network.connect()){
         std::cout << "Error connecting" << std::endl;
-        while(true);
+        return -1;
     }
 
     window.create(sf::VideoMode(800, 800), "AMG88xx");
@@ -117,8 +116,6 @@ int main(){
 
         sf::sleep(sf::seconds(0.01f));
     }
-
-    window.close();
 }
 
 /*int main() {

@@ -9,7 +9,6 @@ namespace MLX90640{
         m_i2c.begin(sda, scl);
         
         if(!m_mlx90640.begin(addr, &m_i2c)){
-            log_e("MLX90640 did not connect via I2C!");
             return false;
         }
 
