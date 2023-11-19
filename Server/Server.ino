@@ -3,9 +3,11 @@
 #include "./src/Network.hpp"
 Network::Network net;
 
-#define MLX_90640
+const int delayTime = 500;
+
+//#define MLX_90640
 //#define AMG_88xx
-//#define Mock_Server
+#define MOCK_SERVER
 
 #ifdef MLX_90640
     #include "./src/MLX90640.hpp"
@@ -13,6 +15,9 @@ Network::Network net;
     
     void initialise(){
         if(!mlx.begin())
+            exit(0);
+
+        if(!net.createAP(F("MLX90640"), F("MLX90640")))
             exit(0);
     }
 
@@ -29,6 +34,9 @@ Network::Network net;
     void initialise(){
         if(!amg.begin())
             exit(0);
+
+        if(!net.createAP(F("AMG8833"), F("AMG-8833")))
+            exit(0);
     }
     
     void run(){
@@ -37,11 +45,32 @@ Network::Network net;
     }
 #endif
 
+#ifdef MOCK_SERVER
+    const int pixel_width = 8;
+    const int pixel_height = 8;
+    float pixel[pixel_width * pixel_height];
+
+    const int min_temp = 17;
+    const int max_temp = 32;
+
+    void initialise(){
+        if(!net.createAP(F("MOCKSERVER"), F("MOCKSERVER")))
+            exit(0);
+    }
+
+    void run(){
+        for(size_t x = 0; x < pixel_width; x++){
+            for(size_t y = 0; y < pixel_height; y++){
+                pixel[y * pixel_width + x] = map(random(255), 0, 255, min_temp, max_temp);
+            }
+        }
+
+        net.sentPacket(pixel, sizeof(float) * pixel_width * pixel_height);
+    }
+#endif
+
 void setup(){
     initialise();
-
-    if(!net.createAP())
-        while(true);
 
     net.createServer();
 }
@@ -51,7 +80,7 @@ void loop(){
         while(net.clientIsConnected()){
             run();
            
-            delay(500);
+            delay(delayTime);
         }
 
         net.endClient();
