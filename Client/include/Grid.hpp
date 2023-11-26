@@ -16,13 +16,13 @@ namespace Grid
     
     const ARRAY_SIZE AMG8833_ARRAY_SIZE = {8, 8};
     const ARRAY_SIZE MLX90640_ARRAY_SIZE = {32, 24};
-    const ARRAY_SIZE 
+    const ARRAY_SIZE MOCK_SERVER_ARRAY_SIZE = {16, 16};
 
     class Grid{
         public:
             Grid();
 
-            void create(const unsigned int x_size, const unsigned int y_size);
+            void create(const unsigned int width, const unsigned int height);
             void create(const ARRAY_SIZE size);
 
         private:

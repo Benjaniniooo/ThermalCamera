@@ -46,8 +46,8 @@ const int delayTime = 500;
 #endif
 
 #ifdef MOCK_SERVER
-    const int pixel_width = 8;
-    const int pixel_height = 8;
+    const int pixel_width = 16;
+    const int pixel_height = 16;
     float pixel[pixel_width * pixel_height];
 
     const int min_temp = 17;

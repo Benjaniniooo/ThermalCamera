@@ -59,16 +59,6 @@ int main(){
         return -1;
     }
 
-    window.create(sf::VideoMode(800, 800), "AMG88xx");
-
-
-    while(window.isOpen()){
-        sf::Event event;
-        while(window.pollEvent(event)){
-            if(event.type == sf::Event::Closed)
-                window.close();
-        }
-
         window.clear();
 
         auto val = network.receive(data, &recv);
@@ -96,40 +86,6 @@ int main(){
 
         sf::sleep(sf::seconds(0.01f));
     }
-}
-
-/*int main() {
-    sf::RenderWindow window(sf::VideoMode(640, 480), "ImGui + SFML = <3");
-    window.setFramerateLimit(60);
-    ImGui::SFML::Init(window);
-
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-
-    sf::Clock deltaClock;
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            ImGui::SFML::ProcessEvent(window, event);
-
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-        }
-
-        ImGui::SFML::Update(window, deltaClock.restart());
-
-        ImGui::Begin("Hello, world!");
-        ImGui::Button("Look at this pretty button");
-        ImGui::End();
-
-        window.clear();
-        window.draw(shape);
-        ImGui::SFML::Render(window);
-        window.display();
-    }
-
-    ImGui::SFML::Shutdown();
 }*/
 
 #include "Application.hpp"
@@ -141,11 +97,11 @@ int main(){
 
     while(app.isOpen()){
         app.handleEvents();
+        app.run();
     }
     
     app.close();
 
     Grid::Grid g;
     g.create(Grid::MLX90640_ARRAY_SIZE);
-    
 }

@@ -2,14 +2,13 @@
 
 namespace Grid{
     Grid::Grid(){
-
     }
 
-    void Grid::create(const unsigned int x_size, const unsigned int y_size){
-        m_valueGrid.resize(x_size, std::vector<std::float32_t>(y_size, 0.f));
+    void Grid::create(const unsigned int width, const unsigned int height){
+        m_valueGrid.resize(width, std::vector<std::float32_t>(height, 0.f));
         
-        m_size.width = x_size;
-        m_size.height = y_size;
+        m_size.width = width;
+        m_size.height = height;
     }
 
     void Grid::create(const ARRAY_SIZE size){
