@@ -1,7 +1,6 @@
 #include "Network.hpp"
 
-namespace Network
-{
+namespace Network{
     Network::Network(){};
 
     bool Network::connect(const sf::IpAddress ip_address, const int port, const sf::Time timeOut){

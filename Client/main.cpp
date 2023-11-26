@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include <stdfloat>
 #include <cstring>
 
@@ -131,3 +131,21 @@ int main(){
 
     ImGui::SFML::Shutdown();
 }*/
+
+#include "Application.hpp"
+#include "Grid.hpp"
+
+int main(){
+    Application::Application app;
+    app.create();
+
+    while(app.isOpen()){
+        app.handleEvents();
+    }
+    
+    app.close();
+
+    Grid::Grid g;
+    g.create(Grid::MLX90640_ARRAY_SIZE);
+    
+}

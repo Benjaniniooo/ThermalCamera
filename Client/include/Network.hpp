@@ -17,8 +17,7 @@
 #include <iostream>
 #include <cinttypes>
 
-namespace Network
-{
+namespace Network{
     const sf::IpAddress SERVER_IP_ADDRESS("192.168.4.1");
     const int SERVER_PORT = 80;
 

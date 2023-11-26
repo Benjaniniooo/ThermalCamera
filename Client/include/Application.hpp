@@ -6,8 +6,9 @@
 #include "./imgui/imgui.h"
 #include "./imgui/imgui-SFML.h"
 
-namespace Application
-{
+#include <iostream>
+
+namespace Application{
     const int WINDOW_WIDTH = 800;
     const int WINDOW_HEIGHT = 800;
 
@@ -20,7 +21,8 @@ namespace Application
             void create(const int width = WINDOW_WIDTH, 
                         const int height = WINDOW_HEIGHT, 
                         const std::string title = WINDOW_TITLE);
-            void run();
+            void handleEvents();
+            bool isOpen();
             void close();
 
         private:
