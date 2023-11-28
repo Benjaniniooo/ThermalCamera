@@ -97,9 +97,11 @@ int main(){
     if(!app.create())
         exit(-1);
 
+    int currentSensor = 0;
+
     while(app.isOpen()){
         app.handleEvents();
-        app.run();
+        app.run(currentSensor);
     }
     
     app.close();

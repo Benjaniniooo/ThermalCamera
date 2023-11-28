@@ -23,7 +23,7 @@ namespace Application{
                         const std::string title = WINDOW_TITLE);
             void handleEvents();
             bool isOpen();
-            void run();
+            void run(int& current);
             void close();
 
         private:

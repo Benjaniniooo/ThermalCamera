@@ -32,12 +32,11 @@ namespace Application{
         ImGui::SFML::Shutdown();
     }
 
-    void Application::run(){
+    void Application::run(int& current){
         ImGui::Begin("ThermalCamera");
         ImGui::SeparatorText("Select Input");
     
         const char* sensors[] = {"AMG8833", "MLX90640", "Mock Server", "Custom"};
-        int current = 0;
 
         if(ImGui::Combo("Sensor", &current, sensors, IM_ARRAYSIZE(sensors))){
             std::cout << "geändert?" << std::endl;
