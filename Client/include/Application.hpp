@@ -18,7 +18,7 @@ namespace Application{
         public:
             Application();
 
-            void create(const int width = WINDOW_WIDTH, 
+            bool create(const int width = WINDOW_WIDTH, 
                         const int height = WINDOW_HEIGHT, 
                         const std::string title = WINDOW_TITLE);
             void handleEvents();

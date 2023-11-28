@@ -4,9 +4,13 @@ namespace Application{
     Application::Application(){
     }
 
-    void Application::create(const int width, const int height, const std::string title){
+    bool Application::create(const int width, const int height, const std::string title){
         m_window.create(sf::VideoMode(width, height), title);
-        ImGui::SFML::Init(m_window);
+
+        if(!ImGui::SFML::Init(m_window))
+            return false;
+        
+        return true;
     }
 
     void Application::handleEvents(){

@@ -93,7 +93,9 @@ int main(){
 
 int main(){
     Application::Application app;
-    app.create();
+    
+    if(!app.create())
+        exit(-1);
 
     while(app.isOpen()){
         app.handleEvents();
