@@ -18,7 +18,10 @@ namespace Grid{
     }
 
     void Grid::copyDataFromRawBuffer(const std::uint8_t* data, const size_t size){
-        for(size_t i = 0; i < size; i++){
+        //convert buffer size to iterator size (one piece of information is 4 bytes or 1 std::float32_t long)
+        size_t size_it = size / sizeof(std::float32_t);
+
+        for(size_t i = 0; i < size_it && i < m_size.width * m_size.height; i++){
             int x = (int) (i / m_size.width);
             int y = i % m_size.height;
 

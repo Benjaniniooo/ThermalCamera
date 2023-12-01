@@ -5,9 +5,9 @@ Network::Network net;
 
 const int delayTime = 500;
 
-#define MLX_90640
+//#define MLX_90640
 //#define AMG_88xx
-//#define MOCK_SERVER
+#define MOCK_SERVER
 
 #ifdef MLX_90640
     #include "./src/MLX90640.hpp"

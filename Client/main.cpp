@@ -89,27 +89,43 @@ int main(){
 }*/
 
 #include "Application.hpp"
-#include "Grid.hpp"
-
 Application::Application app;
 
 
+#include "Network.hpp"
+Network::Network network;
+std::uint8_t data[Network::MAX_PACKET_SIZE];
+size_t recv;
+
+
+#include "Grid.hpp"
+Grid::Grid grid;
+
+
 int main(){
-    Application::Application app;
-    
+    grid.create(Grid::MOCK_SERVER_ARRAY_SIZE);
+
     if(!app.create())
         exit(-1);
+    
+    if(!network.connect()){
+        std::cout << "Error connecting" << std::endl;
+        exit(-2);
+    }
 
     int currentSensor = 0;
 
     while(app.isOpen()){
+        if(network.receive(data, &recv)){
+            std::cout << "\n\n received \n" << recv << std::endl;
+            grid.copyDataFromRawBuffer(data, recv);
+        }
+
         app.handleEvents();
         app.run(currentSensor);
+
+        sf::sleep(sf::seconds(0.2f));
     }
     
     app.close();
-
-    Grid::Grid g;
-    g.create(Grid::MLX90640_ARRAY_SIZE);
-
 }
