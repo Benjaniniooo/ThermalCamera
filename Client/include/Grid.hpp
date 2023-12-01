@@ -1,6 +1,9 @@
 #pragma once
 
 #include <stdfloat>
+#include <cstdint>
+#include <cstring>
+
 
 #include <vector>
 #include <array>
@@ -24,6 +27,8 @@ namespace Grid
 
             void create(const unsigned int width, const unsigned int height);
             void create(const ARRAY_SIZE size);
+
+            void copyDataFromRawBuffer(const std::uint8_t* buffer, const size_t size);
 
         private:
             std::vector<std::vector<std::float32_t>> m_valueGrid;

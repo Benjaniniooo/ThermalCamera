@@ -91,6 +91,9 @@ int main(){
 #include "Application.hpp"
 #include "Grid.hpp"
 
+Application::Application app;
+
+
 int main(){
     Application::Application app;
     
@@ -108,4 +111,5 @@ int main(){
 
     Grid::Grid g;
     g.create(Grid::MLX90640_ARRAY_SIZE);
+
 }
