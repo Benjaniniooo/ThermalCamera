@@ -60,7 +60,11 @@ namespace Application{
             ImGui::InputInt("Port", (int*) &m_network.m_port, true);
 
             if(ImGui::Button("Connect")){
-                m_network.connect();
+                if(m_network.connect()){
+                    std::cout << "Successfully connected" << std::endl;
+                }else{
+                    std::cout << "Could not connect" << std::endl;
+                }
             }
             ImGui::SameLine();
             if(ImGui::Button("Disconnect")){

@@ -37,6 +37,7 @@ namespace Network{
 
             std::string m_address;
             unsigned int m_port;
+            
         private:
             sf::TcpSocket m_tcpSocket;
     };
