@@ -4,11 +4,10 @@ namespace Application{
     Application::Application(){
     }
 
-    bool Application::create(const int width, const int height, const std::string title){
+    bool Application::create(const unsigned int width, const unsigned int height, const std::string title){
         m_width = width;
-        m_height = height;
-        
-        m_window.create(sf::VideoMode(width, height), title);
+        m_height = height;   
+        m_window.create(sf::VideoMode(m_width, m_height), title);
 
         if(!ImGui::SFML::Init(m_window))
             return false;
@@ -24,6 +23,14 @@ namespace Application{
     void Application::handleEvents(){
         while(m_window.pollEvent(m_event)){
             ImGui::SFML::ProcessEvent(m_window, m_event);
+
+            if(m_event.type == sf::Event::Resized){
+                m_width = m_event.size.width;
+                m_height = m_event.size.height;
+
+                sf::FloatRect view(0, 0, m_width, m_height);
+                m_window.setView(sf::View(view));    
+            }
 
             if(m_event.type == sf::Event::Closed)
                 m_window.close();

@@ -67,8 +67,6 @@ namespace Grid{
         float x_size = width / m_size.width;
         float y_size = height / m_size.height; 
 
-        std::cout << window->getSize().x << " " << window->getSize().y << std::endl;
-
         sf::Vector2f size(x_size, y_size);
 
         for(size_t x = 0; x < m_size.width; x++){

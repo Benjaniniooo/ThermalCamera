@@ -13,6 +13,10 @@ namespace Network{
         return true;
     }
 
+    void Network::disconnect(){
+        m_tcpSocket.disconnect();
+    }
+
     bool Network::receive(std::uint8_t* data, size_t* recv, int max_packet_size){
         if(m_tcpSocket.receive(data, max_packet_size, *recv) != sf::Socket::Done){
             return false;

@@ -10,8 +10,8 @@
 #include "Network.hpp"
 
 namespace Application{
-    const int WINDOW_WIDTH = 800;
-    const int WINDOW_HEIGHT = 800;
+    const unsigned int WINDOW_WIDTH = 800;
+    const unsigned int WINDOW_HEIGHT = 800;
 
     const std::string WINDOW_TITLE = std::string("ThermalCamera");
 
@@ -19,8 +19,8 @@ namespace Application{
         public:
             Application();
 
-            bool create(const int width = WINDOW_WIDTH, 
-                        const int height = WINDOW_HEIGHT, 
+            bool create(const unsigned int width = WINDOW_WIDTH, 
+                        const unsigned int height = WINDOW_HEIGHT, 
                         const std::string title = WINDOW_TITLE);
             void handleEvents();
             bool isOpen();
@@ -29,7 +29,7 @@ namespace Application{
 
         private:
             sf::RenderWindow m_window;
-            int m_width, m_height;
+            unsigned int m_width, m_height;
             sf::Event m_event;
 
             sf::Clock m_deltaClock;

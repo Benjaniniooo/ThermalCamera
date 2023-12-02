@@ -7,6 +7,7 @@
     - [ ] Rotate View
     - [ ] Set interpolation
     - [ ] Set Sensor
+    - [ ] Min / Max Temp
     - [ ] Set delay time
     - [ ] Diganostics
         - [ ] Average Temp
