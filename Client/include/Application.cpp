@@ -12,6 +12,7 @@ namespace Application{
         if(!ImGui::SFML::Init(m_window))
             return false;
         
+        //ToDo
         if(!m_network.connect())
             return false;
 
@@ -28,8 +29,7 @@ namespace Application{
                 m_width = m_event.size.width;
                 m_height = m_event.size.height;
 
-                sf::FloatRect view(0, 0, m_width, m_height);
-                m_window.setView(sf::View(view));    
+                m_window.setView(sf::View(sf::FloatRect(0, 0, m_width, m_height)));    
             }
 
             if(m_event.type == sf::Event::Closed)
