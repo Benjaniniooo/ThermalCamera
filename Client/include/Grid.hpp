@@ -4,11 +4,7 @@
 #include <cstdint>
 #include <cstring>
 
-
 #include <vector>
-#include <array>
-
-#include <iostream>
 
 #include <SFML/Graphics.hpp>
 

@@ -74,16 +74,7 @@ namespace Application{
         }
         */
 
-       std::uint8_t data[Network::MAX_PACKET_SIZE];
-        size_t recv;
-
-        if(m_network.receive(data, &recv)){
-            std::cout << "\n\n received \n" << recv << std::endl;
-            m_grid.copyDataFromRawBuffer(data, recv);
-        }
-
         m_window.clear();
-        m_grid.render(&m_window, m_width, m_height);
         ImGui::SFML::Render(m_window);
         m_window.display();          
     }
