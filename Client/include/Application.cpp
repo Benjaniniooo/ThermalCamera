@@ -42,6 +42,19 @@ namespace Application{
             std::cout << "geändert?" << std::endl;
         }
 
+        ImGui::SeparatorText("EXPERIMENT");
+
+        if(ImGui::BeginMenu("Test Menu")){
+            if(ImGui::MenuItem("MenuItem1")){
+                ImGui::TextColored(ImVec4(0.607, 0.635, 0.909, 1), "Hintergrundfarbe: ");
+                ImGui::EndMenu();
+            }
+            if(ImGui::MenuItem("MenuItem2")){
+                ImGui::TextColored(ImVec4(0.635, 0.606, 0.909, 1), "Vordergrundfarme: ");
+                ImGui::EndMenu();
+            }
+        }
+
         ImGui::End();
 
         ImGui::ShowDemoWindow();
