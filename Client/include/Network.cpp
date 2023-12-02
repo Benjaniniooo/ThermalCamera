@@ -4,9 +4,7 @@ namespace Network{
     Network::Network()
         : m_address(SERVER_ADDRESS)
         , m_port(SERVER_PORT)
-    {
-        m_tcpSocket.setBlocking(false);
-    }
+    {}
 
     bool Network::connect(const std::string address, const unsigned int port){
         m_address = address;
@@ -19,13 +17,17 @@ namespace Network{
     bool Network::connect(){
         sf::IpAddress ipAddress(m_address);
 
+        std::cout << ipAddress << " " << m_port << std::endl;
+
         if(m_tcpSocket.connect(ipAddress, m_port) != sf::Socket::Done){
+            m_tcpSocket.setBlocking(false);
             return false;
         }
         return true;
     }
 
     void Network::disconnect(){
+        m_tcpSocket.setBlocking(true);
         m_tcpSocket.disconnect();
     }
 
