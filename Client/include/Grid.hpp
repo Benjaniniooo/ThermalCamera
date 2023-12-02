@@ -32,7 +32,7 @@ namespace Grid
 
             void copyDataFromRawBuffer(const std::uint8_t* buffer, const size_t size);
 
-            void render(sf::RenderWindow* window);
+            void render(sf::RenderWindow* window, const unsigned int width, const unsigned int height);
 
         private:
             std::vector<std::vector<std::float32_t>> m_valueGrid;

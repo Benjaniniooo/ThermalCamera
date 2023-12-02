@@ -5,6 +5,9 @@ namespace Application{
     }
 
     bool Application::create(const int width, const int height, const std::string title){
+        m_width = width;
+        m_height = height;
+        
         m_window.create(sf::VideoMode(width, height), title);
 
         if(!ImGui::SFML::Init(m_window))
@@ -13,7 +16,7 @@ namespace Application{
         if(!m_network.connect())
             return false;
 
-        grid.create(Grid::MOCK_SERVER_ARRAY_SIZE);
+        m_grid.create(Grid::MOCK_SERVER_ARRAY_SIZE);
 
         return true;
     }
@@ -73,8 +76,8 @@ namespace Application{
         }
 
         m_window.clear();
+        m_grid.render(&m_window, m_width, m_height);
         ImGui::SFML::Render(m_window);
-        m_grid.render(&m_window);
         m_window.display();          
     }
 }

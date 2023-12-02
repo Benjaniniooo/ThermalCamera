@@ -29,6 +29,7 @@ namespace Application{
 
         private:
             sf::RenderWindow m_window;
+            int m_width, m_height;
             sf::Event m_event;
 
             sf::Clock m_deltaClock;

@@ -63,16 +63,19 @@ namespace Grid{
         }
     }
 
-    void Grid::render(sf::RenderWindow* window){
-        float x_size = window->getSize().x / m_size.width;
-        float y_size = window->getSize().y / m_size.height; 
+    void Grid::render(sf::RenderWindow* window, const unsigned int width, const unsigned int height){
+        float x_size = width / m_size.width;
+        float y_size = height / m_size.height; 
+
+        std::cout << window->getSize().x << " " << window->getSize().y << std::endl;
+
         sf::Vector2f size(x_size, y_size);
 
         for(size_t x = 0; x < m_size.width; x++){
             for(size_t y = 0; y < m_size.height; y++){
                 sf::RectangleShape rect;
                 rect.setSize(size);
-
+                rect.setPosition(sf::Vector2f(x * x_size, y * y_size));
                 rect.setFillColor(hsv(
                                     lerp(   17, 
                                             30, 
