@@ -5,6 +5,7 @@
 
 #include "./imgui/imgui.h"
 #include "./imgui/imgui-SFML.h"
+#include "./imgui/imgui_stdlib.h"
 
 #include "Grid.hpp"
 #include "Network.hpp"
@@ -34,7 +35,6 @@ namespace Application{
 
             sf::Clock m_deltaClock;
 
-            Grid::Grid m_grid;
             Network::Network m_network;
 
             //IMGUI

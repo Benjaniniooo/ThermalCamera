@@ -28,6 +28,10 @@ namespace Network{
     void Network::disconnect(){
         m_tcpSocket.disconnect();
     }
+
+    std::string& Network::getAddress(){
+        return m_address;
+    }
 }
 
 /*namespace Network{

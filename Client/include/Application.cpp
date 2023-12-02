@@ -11,12 +11,6 @@ namespace Application{
 
         if(!ImGui::SFML::Init(m_window))
             return false;
-        
-        //ToDo
-        if(!m_network.connect())
-            return false;
-
-        m_grid.create(Grid::MOCK_SERVER_ARRAY_SIZE);
 
         return true;
     }
@@ -60,7 +54,18 @@ namespace Application{
 
             ImGui::SeparatorText("Sensors");
 
-            ImGui::SeparatorText("Network");
+            ImGui::SeparatorText("Network");            
+
+            ImGui::InputTextWithHint("IP Address", "localhost or 192.168.4.1", &m_network.m_address);
+            ImGui::InputInt("Port", (int*) &m_network.m_port, true);
+
+            if(ImGui::Button("Connect")){
+                m_network.connect();
+            }
+            ImGui::SameLine();
+            if(ImGui::Button("Disconnect")){
+                m_network.disconnect();
+            }
 
             ImGui::SeparatorText("Delay Time");
 
@@ -73,6 +78,8 @@ namespace Application{
             std::cout << "geändert?" << std::endl;
         }
         */
+
+        ImGui::ShowDemoWindow();
 
         m_window.clear();
         ImGui::SFML::Render(m_window);
