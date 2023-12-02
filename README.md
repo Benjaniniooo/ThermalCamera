@@ -14,3 +14,6 @@
 - Drawing
     - [ ] Draw to RenderWindow
     - [ ] Interpolate (Linear & Quadratic)
+
+- Good to have
+    - [ ] SFML Server localhost

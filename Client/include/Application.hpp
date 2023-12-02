@@ -35,5 +35,9 @@ namespace Application{
 
             Grid::Grid m_grid;
             Network::Network m_network;
+
+            //IMGUI
+            bool m_showSettingsPage;
+            bool m_showRenderPage;
     };
 }

@@ -10,6 +10,11 @@ namespace Application{
         if(!ImGui::SFML::Init(m_window))
             return false;
         
+        if(!m_network.connect())
+            return false;
+
+        grid.create(Grid::MOCK_SERVER_ARRAY_SIZE);
+
         return true;
     }
 
@@ -33,37 +38,43 @@ namespace Application{
     }
 
     void Application::run(){
-        /*ImGui::Begin("ThermalCamera");
-        ImGui::SeparatorText("Select Input");
-    
-        const char* sensors[] = {"AMG8833", "MLX90640", "Mock Server", "Custom"};
+        if(ImGui::BeginMainMenuBar()){
+            ImGui::MenuItem("Settings", NULL, &m_showSettingsPage);
+            ImGui::MenuItem("Rendering", NULL, &m_showRenderPage);
+
+            ImGui::EndMainMenuBar();
+        }
+
+        if(m_showSettingsPage){
+            ImGui::Begin("Settings", &m_showSettingsPage);
+
+            ImGui::SeparatorText("Sensors");
+
+            ImGui::SeparatorText("Network");
+
+            ImGui::SeparatorText("Delay Time");
+
+            ImGui::End();
+        }
+
+        /*const char* sensors[] = {"AMG8833", "MLX90640", "Mock Server", "Custom"};
 
         if(ImGui::Combo("Sensor", &current, sensors, IM_ARRAYSIZE(sensors))){
             std::cout << "geändert?" << std::endl;
         }
+        */
 
-        ImGui::SeparatorText("EXPERIMENT");
+       std::uint8_t data[Network::MAX_PACKET_SIZE];
+        size_t recv;
 
-        if(ImGui::BeginMenu("Test Menu")){
-            if(ImGui::MenuItem("MenuItem1")){
-                ImGui::EndMenu();
-                ImGui::TextColored(ImVec4(0.607, 0.635, 0.909, 1), "Hintergrundfarbe: ");
-            }
-            if(ImGui::MenuItem("MenuItem2")){
-                ImGui::EndMenu();
-                ImGui::TextColored(ImVec4(0.635, 0.606, 0.909, 1), "Vordergrundfarme: ");
-            }else{
-                ImGui::EndMenu();
-            }
+        if(m_network.receive(data, &recv)){
+            std::cout << "\n\n received \n" << recv << std::endl;
+            m_grid.copyDataFromRawBuffer(data, recv);
         }
-
-        ImGui::End();
-
-        ImGui::ShowDemoWindow();
 
         m_window.clear();
         ImGui::SFML::Render(m_window);
-        m_window.display();   
-        */       
+        m_grid.render(&m_window);
+        m_window.display();          
     }
 }

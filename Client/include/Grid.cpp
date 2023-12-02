@@ -1,5 +1,38 @@
 #include "Grid.hpp"
 
+sf::Color hsv(int hue, float sat, float val){
+  hue %= 360;
+  while(hue<0) hue += 360;
+
+  if(sat<0.f) sat = 0.f;
+  if(sat>1.f) sat = 1.f;
+
+  if(val<0.f) val = 0.f;
+  if(val>1.f) val = 1.f;
+
+  int h = hue/60;
+  float f = float(hue)/60-h;
+  float p = val*(1.f-sat);
+  float q = val*(1.f-sat*f);
+  float t = val*(1.f-sat*(1-f));
+
+  switch(h)
+  {
+    default:
+    case 0:
+    case 6: return sf::Color(val*255, t*255, p*255);
+    case 1: return sf::Color(q*255, val*255, p*255);
+    case 2: return sf::Color(p*255, val*255, t*255);
+    case 3: return sf::Color(p*255, q*255, val*255);
+    case 4: return sf::Color(t*255, p*255, val*255);
+    case 5: return sf::Color(val*255, p*255, q*255);
+  }
+}
+
+float lerp(float x1, float x2, float y1, float y2, float v){
+    return (v - x1) * (y2 - y1) / (x2 - x1) + y1;
+}
+
 namespace Grid{
     Grid::Grid(){
     }
@@ -27,6 +60,32 @@ namespace Grid{
 
             //copy four bytes of data from the buffer to the valueGrid at (x,y) and bitcast it to a std::float32_t
             std::memcpy(&m_valueGrid.at(x).at(y), &data[i * 4], sizeof(std::float32_t));
+        }
+    }
+
+    void Grid::render(sf::RenderWindow* window){
+        float x_size = window->getSize().x / m_size.width;
+        float y_size = window->getSize().y / m_size.height; 
+        sf::Vector2f size(x_size, y_size);
+
+        for(size_t x = 0; x < m_size.width; x++){
+            for(size_t y = 0; y < m_size.height; y++){
+                sf::RectangleShape rect;
+                rect.setSize(size);
+
+                rect.setFillColor(hsv(
+                                    lerp(   17, 
+                                            30, 
+                                            240, 
+                                            0, 
+                                            m_valueGrid.at(x).at(y)
+                                        ), 
+                                    1, 
+                                    1
+                                ));
+
+                window->draw(rect);
+            }
         }
     }
 }

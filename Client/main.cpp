@@ -105,24 +105,26 @@ Grid::Grid grid;
 int main(){
     grid.create(Grid::MOCK_SERVER_ARRAY_SIZE);
 
-    if(!app.create())
+    if(!app.create()){
+        std::cout << "Error connecting" << std::endl;
         exit(-1);
+    }
     
-    if(!network.connect()){
+    /*if(!network.connect()){
         std::cout << "Error connecting" << std::endl;
         exit(-2);
-    }
+    }*/
 
     while(app.isOpen()){
-        if(network.receive(data, &recv)){
+        /*if(network.receive(data, &recv)){
             std::cout << "\n\n received \n" << recv << std::endl;
             grid.copyDataFromRawBuffer(data, recv);
-        }
+        }*/
 
         app.handleEvents();
         app.run();
 
-        sf::sleep(sf::seconds(0.2f));
+        //sf::sleep(sf::milliseconds(50));
     }
     
     app.close();

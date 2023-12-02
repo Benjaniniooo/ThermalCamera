@@ -10,6 +10,8 @@
 
 #include <iostream>
 
+#include <SFML/Graphics.hpp>
+
 namespace Grid
 {
     typedef struct{
@@ -29,6 +31,8 @@ namespace Grid
             void create(const ARRAY_SIZE size);
 
             void copyDataFromRawBuffer(const std::uint8_t* buffer, const size_t size);
+
+            void render(sf::RenderWindow* window);
 
         private:
             std::vector<std::vector<std::float32_t>> m_valueGrid;
