@@ -32,8 +32,8 @@ namespace Application{
         ImGui::SFML::Shutdown();
     }
 
-    void Application::run(int& current){
-        ImGui::Begin("ThermalCamera");
+    void Application::run(){
+        /*ImGui::Begin("ThermalCamera");
         ImGui::SeparatorText("Select Input");
     
         const char* sensors[] = {"AMG8833", "MLX90640", "Mock Server", "Custom"};
@@ -63,6 +63,7 @@ namespace Application{
 
         m_window.clear();
         ImGui::SFML::Render(m_window);
-        m_window.display();          
+        m_window.display();   
+        */       
     }
 }

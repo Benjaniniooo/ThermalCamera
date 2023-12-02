@@ -8,6 +8,9 @@
     - [ ] Set interpolation
     - [ ] Set Sensor
     - [ ] Set delay time
+    - [ ] Diganostics
+        - [ ] Average Temp
+        - [ ] Hot spots
 - Drawing
     - [ ] Draw to RenderWindow
     - [ ] Interpolate (Linear & Quadratic)

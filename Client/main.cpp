@@ -113,8 +113,6 @@ int main(){
         exit(-2);
     }
 
-    int currentSensor = 0;
-
     while(app.isOpen()){
         if(network.receive(data, &recv)){
             std::cout << "\n\n received \n" << recv << std::endl;
@@ -122,7 +120,7 @@ int main(){
         }
 
         app.handleEvents();
-        app.run(currentSensor);
+        app.run();
 
         sf::sleep(sf::seconds(0.2f));
     }

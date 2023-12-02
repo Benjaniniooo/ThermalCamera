@@ -6,7 +6,8 @@
 #include "./imgui/imgui.h"
 #include "./imgui/imgui-SFML.h"
 
-#include <iostream>
+#include "Grid.hpp"
+#include "Network.hpp"
 
 namespace Application{
     const int WINDOW_WIDTH = 800;
@@ -23,7 +24,7 @@ namespace Application{
                         const std::string title = WINDOW_TITLE);
             void handleEvents();
             bool isOpen();
-            void run(int& current);
+            void run();
             void close();
 
         private:
@@ -31,5 +32,8 @@ namespace Application{
             sf::Event m_event;
 
             sf::Clock m_deltaClock;
+
+            Grid::Grid m_grid;
+            Network::Network m_network;
     };
 }
