@@ -36,6 +36,7 @@ namespace Application{
             sf::Clock m_deltaClock;
 
             Network::Network m_network;
+            Grid::Grid m_grid;
 
             //IMGUI
             bool m_showSettingsPage;

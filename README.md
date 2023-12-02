@@ -3,7 +3,8 @@
 ## ToDo
 
 - Menu
-    - [ ] Connect to Network on IP & Port
+    - [x] Connect to Network on IP & Port
+    - [ ] connection status
     - [ ] Rotate View
     - [ ] Set interpolation
     - [ ] Set Sensor

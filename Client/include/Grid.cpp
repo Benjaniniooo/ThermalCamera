@@ -64,7 +64,7 @@ namespace Grid{
     }
 
     void Grid::render(sf::RenderWindow* window, const unsigned int width, const unsigned int height){
-        float x_size = width / m_size.width;
+        /*float x_size = width / m_size.width;
         float y_size = height / m_size.height; 
 
         sf::Vector2f size(x_size, y_size);
@@ -87,6 +87,6 @@ namespace Grid{
 
                 window->draw(rect);
             }
-        }
+        }*/
     }
 }

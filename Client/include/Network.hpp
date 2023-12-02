@@ -12,11 +12,8 @@
 #pragma once
 
 #include <SFML/Network.hpp>
-#include <SFML/System.hpp>
 
-#include <iostream>
 #include <cinttypes>
-#include <array>
 
 namespace Network{
     const std::string SERVER_ADDRESS = "192.168.4.1";
@@ -37,7 +34,7 @@ namespace Network{
 
             std::string m_address;
             unsigned int m_port;
-            
+
         private:
             sf::TcpSocket m_tcpSocket;
     };

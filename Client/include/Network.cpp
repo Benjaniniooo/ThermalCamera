@@ -17,8 +17,6 @@ namespace Network{
     bool Network::connect(){
         sf::IpAddress ipAddress(m_address);
 
-        std::cout << ipAddress << " " << m_port << std::endl;
-
         if(m_tcpSocket.connect(ipAddress, m_port) != sf::Socket::Done){
             m_tcpSocket.setBlocking(false);
             return false;

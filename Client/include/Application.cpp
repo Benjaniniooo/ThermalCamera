@@ -60,11 +60,7 @@ namespace Application{
             ImGui::InputInt("Port", (int*) &m_network.m_port, true);
 
             if(ImGui::Button("Connect")){
-                if(m_network.connect()){
-                    std::cout << "Successfully connected" << std::endl;
-                }else{
-                    std::cout << "Could not connect" << std::endl;
-                }
+                m_network.connect();
             }
             ImGui::SameLine();
             if(ImGui::Button("Disconnect")){
@@ -75,13 +71,6 @@ namespace Application{
 
             ImGui::End();
         }
-
-        /*const char* sensors[] = {"AMG8833", "MLX90640", "Mock Server", "Custom"};
-
-        if(ImGui::Combo("Sensor", &current, sensors, IM_ARRAYSIZE(sensors))){
-            std::cout << "geändert?" << std::endl;
-        }
-        */
 
         ImGui::ShowDemoWindow();
 
