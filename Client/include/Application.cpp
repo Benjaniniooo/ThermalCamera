@@ -46,12 +46,15 @@ namespace Application{
 
         if(ImGui::BeginMenu("Test Menu")){
             if(ImGui::MenuItem("MenuItem1")){
+                ImGui::EndMenu();
                 ImGui::TextColored(ImVec4(0.607, 0.635, 0.909, 1), "Hintergrundfarbe: ");
             }
             if(ImGui::MenuItem("MenuItem2")){
+                ImGui::EndMenu();
                 ImGui::TextColored(ImVec4(0.635, 0.606, 0.909, 1), "Vordergrundfarme: ");
+            }else{
+                ImGui::EndMenu();
             }
-            ImGui::EndMenu();
         }
 
         ImGui::End();
