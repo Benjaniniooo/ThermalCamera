@@ -15,11 +15,13 @@
 
 #include <cinttypes>
 
+#include <iostream>
+
 namespace Network{
     const std::string SERVER_ADDRESS = "192.168.4.1";
     const unsigned int SERVER_PORT = 80;
 
-    const int MAX_PACKET_SIZE = 64 * 64 * sizeof(std::uint32_t);
+    const int BUFFER_SIZE = 64 * 64 * sizeof(std::uint32_t);
 
     class Network{
         public:
@@ -29,13 +31,15 @@ namespace Network{
             bool connect();
             void disconnect();
 
-            std::string& getAddress();
-            unsigned int& getPort();
+            bool receive();
 
             std::string m_address;
             unsigned int m_port;
 
+            std::uint8_t m_buffer[BUFFER_SIZE];
+            size_t m_received_bytes;   
+
         private:
-            sf::TcpSocket m_tcpSocket;
+            sf::TcpSocket m_tcpSocket;         
     };
 }

@@ -4,7 +4,11 @@ namespace Network{
     Network::Network()
         : m_address(SERVER_ADDRESS)
         , m_port(SERVER_PORT)
-    {}
+        , m_received_bytes(0)
+    {   
+        std::fill(m_buffer, m_buffer + BUFFER_SIZE, 0);
+
+    }
 
     bool Network::connect(const std::string address, const unsigned int port){
         m_address = address;
@@ -17,11 +21,13 @@ namespace Network{
     bool Network::connect(){
         sf::IpAddress ipAddress(m_address);
 
-        if(m_tcpSocket.connect(ipAddress, m_port) != sf::Socket::Done){
+        if(m_tcpSocket.connect(ipAddress, m_port, sf::seconds(1.f)) == sf::Socket::Done){
             m_tcpSocket.setBlocking(false);
-            return false;
+
+            return true;
         }
-        return true;
+
+        return false;
     }
 
     void Network::disconnect(){
@@ -29,17 +35,11 @@ namespace Network{
         m_tcpSocket.disconnect();
     }
 
-    std::string& Network::getAddress(){
-        return m_address;
-    }
-}
-
-/*namespace Network{
-    bool Network::receive(std::uint8_t* data, size_t* recv, int max_packet_size){
-        if(m_tcpSocket.receive(data, max_packet_size, *recv) != sf::Socket::Done){
-            return false;
+    bool Network::receive(){
+        if(m_tcpSocket.receive(&m_buffer, BUFFER_SIZE, m_received_bytes) == sf::Socket::Done){
+            return true;
         }
 
-        return true;
+        return false;
     }
-}*/
+}
