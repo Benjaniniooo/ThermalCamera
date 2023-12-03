@@ -23,6 +23,11 @@ namespace Network{
 
     const int BUFFER_SIZE = 64 * 64 * sizeof(std::uint32_t);
 
+    enum CONNECTION_STATUS{
+        Connected,
+        Disconnected
+    };
+
     class Network{
         public:
             Network();
@@ -37,7 +42,8 @@ namespace Network{
             unsigned int m_port;
 
             std::uint8_t m_buffer[BUFFER_SIZE];
-            size_t m_received_bytes;   
+            size_t m_received_bytes;
+            CONNECTION_STATUS m_connectionStatus;
 
         private:
             sf::TcpSocket m_tcpSocket;         

@@ -5,6 +5,7 @@ namespace Network{
         : m_address(SERVER_ADDRESS)
         , m_port(SERVER_PORT)
         , m_received_bytes(0)
+        , m_connectionStatus(CONNECTION_STATUS::Disconnected)
     {   
         std::fill(m_buffer, m_buffer + BUFFER_SIZE, 0);
 
@@ -22,6 +23,7 @@ namespace Network{
         sf::IpAddress ipAddress(m_address);
 
         if(m_tcpSocket.connect(ipAddress, m_port, sf::seconds(1.f)) == sf::Socket::Done){
+            m_connectionStatus = CONNECTION_STATUS::Connected;
             m_tcpSocket.setBlocking(false);
 
             return true;
@@ -31,6 +33,7 @@ namespace Network{
     }
 
     void Network::disconnect(){
+        m_connectionStatus = CONNECTION_STATUS::Disconnected;
         m_tcpSocket.setBlocking(true);
         m_tcpSocket.disconnect();
     }

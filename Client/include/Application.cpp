@@ -66,6 +66,15 @@ namespace Application{
             if(ImGui::Button("Disconnect")){
                 m_network.disconnect();
             }
+            
+            if(m_network.m_connectionStatus == Network::CONNECTION_STATUS::Connected){
+                ImGui::Text("Connected");
+
+                m_network.receive();
+            }else if(m_network.m_connectionStatus == Network::CONNECTION_STATUS::Disconnected){
+                ImGui::Text("Disconnected");
+            }
+
             ImGui::Text(std::to_string(m_network.m_received_bytes).c_str());
 
             ImGui::SeparatorText("Delay Time");

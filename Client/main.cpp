@@ -10,7 +10,7 @@ int main(){
         app.handleEvents();
         app.run();
 
-        //sf::sleep(sf::milliseconds(50));
+        sf::sleep(sf::milliseconds(50));
     }
     
     app.close();
