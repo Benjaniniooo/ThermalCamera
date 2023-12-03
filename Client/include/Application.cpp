@@ -66,6 +66,7 @@ namespace Application{
             if(ImGui::Button("Disconnect")){
                 m_network.disconnect();
             }
+            ImGui::Text(std::to_string(m_network.m_received_bytes).c_str());
 
             ImGui::SeparatorText("Delay Time");
 
