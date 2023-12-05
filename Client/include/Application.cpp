@@ -52,32 +52,8 @@ namespace Application{
         if(m_showSettingsPage){
             ImGui::Begin("Settings", &m_showSettingsPage);
 
-            ImGui::SeparatorText("Sensors");
-
-            ImGui::SeparatorText("Network");            
-
-            ImGui::InputTextWithHint("IP Address", "localhost or 192.168.4.1", &m_network.m_address);
-            ImGui::InputInt("Port", (int*) &m_network.m_port, true);
-
-            if(ImGui::Button("Connect")){
-                m_network.connect();
-            }
-            ImGui::SameLine();
-            if(ImGui::Button("Disconnect")){
-                m_network.disconnect();
-            }
-            
-            if(m_network.m_connectionStatus == Network::CONNECTION_STATUS::Connected){
-                ImGui::Text("Connected");
-
-                m_network.receive();
-            }else if(m_network.m_connectionStatus == Network::CONNECTION_STATUS::Disconnected){
-                ImGui::Text("Disconnected");
-            }
-
-            ImGui::Text(std::to_string(m_network.m_received_bytes).c_str());
-
-            ImGui::SeparatorText("Delay Time");
+            networkManager();
+            sensorManager();
 
             ImGui::End();
         }
@@ -87,5 +63,35 @@ namespace Application{
         m_window.clear();
         ImGui::SFML::Render(m_window);
         m_window.display();          
+    }
+
+    void Application::networkManager(){
+        ImGui::SeparatorText("Network");
+
+        //input for IP and Port
+        ImGui::InputTextWithHint("IP Addresse", "localhost oder 192.168.4.1", &m_network.m_address);
+        ImGui::InputInt("Port", (int*) &m_network.m_port, true);
+
+        if(ImGui::Button("Connect"))
+            m_network.connect();
+        ImGui::SameLine();
+        if(ImGui::Button("Disconnect"))
+            m_network.disconnect();
+
+        //if connected, receive
+        if(m_network.m_connectionStatus == Network::CONNECTION_STATUS::Connected){
+            ImGui::Text("Connected");
+
+            m_network.receive();
+            sf::sleep(sf::milliseconds(50.f)); //sleep for next packet to arrive as one piece
+        }else if(m_network.m_connectionStatus == Network::CONNECTION_STATUS::Disconnected){
+            ImGui::Text("Disconnected");
+        }else{
+            ImGui::Text("Error (Not Connected nor Disconnected)");
+        }
+    }
+
+    void Application::sensorManager(){
+        ImGui::SeparatorText("Sensors");
     }
 }

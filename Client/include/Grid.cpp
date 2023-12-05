@@ -34,7 +34,9 @@ float lerp(float x1, float x2, float y1, float y2, float v){
 }
 
 namespace Grid{
-    Grid::Grid(){
+    Grid::Grid()
+        : m_size({0, 0})
+    {
     }
 
     void Grid::create(const unsigned int width, const unsigned int height){

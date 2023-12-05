@@ -41,5 +41,8 @@ namespace Application{
             //IMGUI
             bool m_showSettingsPage;
             bool m_showRenderPage;
+
+            void networkManager();
+            void sensorManager();
     };
 }
