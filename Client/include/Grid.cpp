@@ -128,29 +128,5 @@ namespace Grid{
                 window->draw(rect);
             }
         }
-
-        /*float x_size = (float) width / m_size.width;
-        float y_size = (float) height / m_size.height;
-        sf::Vector2f size(x_size, y_size);
-
-        for(size_t x = 0; x < m_size.width; x++){
-            for(size_t y = 0; y < m_size.height; y++){
-                sf::RectangleShape rect;
-                rect.setSize(size);
-                rect.setPosition(sf::Vector2f(x * x_size, y * y_size));
-                rect.setFillColor(hsv(
-                                    lerp(   17, 
-                                            30, 
-                                            240, 
-                                            0, 
-                                            m_valueGrid.at(x).at(y)
-                                        ), 
-                                    1, 
-                                    1
-                                ));
-
-                window->draw(rect);
-            }
-        }*/
     }
 }
