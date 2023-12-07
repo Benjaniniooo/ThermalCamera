@@ -3,11 +3,11 @@
 #include "./src/Network.hpp"
 Network::Network net;
 
-const int delayTime = 500;
+const int delayTime = 250;
 
-//#define MLX_90640
+#define MLX_90640
 //#define AMG_88xx
-#define MOCK_SERVER
+//#define MOCK_SERVER
 
 #ifdef MLX_90640
     #include "./src/MLX90640.hpp"
@@ -61,7 +61,8 @@ const int delayTime = 500;
     void run(){
         for(size_t x = 0; x < pixel_width; x++){
             for(size_t y = 0; y < pixel_height; y++){
-                pixel[y * pixel_width + x] = map(random(255), 0, 255, min_temp, max_temp);
+                //pixel[y * pixel_width + x] = map(random(255), 0, 255, min_temp, max_temp);
+                pixel[y * pixel_width + x] = (float) (x * y) / (pixel_width * pixel_height) * 255;
             }
         }
 

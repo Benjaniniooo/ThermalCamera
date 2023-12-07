@@ -9,8 +9,6 @@ int main(){
     while(app.isOpen()){
         app.handleEvents();
         app.run();
-
-        sf::sleep(sf::milliseconds(50));
     }
     
     app.close();

@@ -2,6 +2,7 @@
 
 namespace Application{
     Application::Application(){
+        m_grid.create(32, 24);
     }
 
     bool Application::create(const unsigned int width, const unsigned int height, const std::string title){
@@ -70,7 +71,11 @@ namespace Application{
             if(m_network.m_connectionStatus == Network::CONNECTION_STATUS::Connected){
                 ImGui::Text("Connected");
 
-                m_network.receive();
+                if(m_network.receive()){
+                    m_grid.copyDataFromRawBuffer(m_network.m_buffer, m_network.m_received_bytes);
+                    m_grid.interpolate();
+                }
+                sf::sleep(sf::milliseconds(50));
             }else if(m_network.m_connectionStatus == Network::CONNECTION_STATUS::Disconnected){
                 ImGui::Text("Disconnected");
             }
@@ -85,7 +90,10 @@ namespace Application{
         ImGui::ShowDemoWindow();
 
         m_window.clear();
+        
+        m_grid.render(&m_window, m_width, m_height);
         ImGui::SFML::Render(m_window);
+
         m_window.display();          
     }
 }

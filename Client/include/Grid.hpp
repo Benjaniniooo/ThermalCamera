@@ -3,10 +3,13 @@
 #include <stdfloat>
 #include <cstdint>
 #include <cstring>
+#include <cmath>
 
 #include <vector>
 
 #include <SFML/Graphics.hpp>
+
+#include <iostream>
 
 namespace Grid
 {
@@ -28,10 +31,17 @@ namespace Grid
 
             void copyDataFromRawBuffer(const std::uint8_t* buffer, const size_t size);
 
+            void interpolate();
+
             void render(sf::RenderWindow* window, const unsigned int width, const unsigned int height);
 
         private:
             std::vector<std::vector<std::float32_t>> m_valueGrid;
             ARRAY_SIZE m_size;
+
+            std::vector<std::vector<std::float32_t>> m_values;
+            ARRAY_SIZE m_sizeInterpolated;
+
+            const unsigned int interpol = 8;
     };
 }

@@ -42,31 +42,95 @@ namespace Grid{
         
         m_size.width = width;
         m_size.height = height;
+
+        m_sizeInterpolated.width = (m_size.width - 1) * interpol + m_size.width;
+        m_sizeInterpolated.height = (m_size.height - 1) * interpol + m_size.height;
+
+        m_values.resize(m_sizeInterpolated.width, std::vector<std::float32_t>(m_sizeInterpolated.height, 0.f));
     }
 
     void Grid::create(const ARRAY_SIZE size){
-        m_valueGrid.resize(size.width, std::vector<std::float32_t>(size.height, 0.f));
-
-        m_size = size;
+        create(size.width, size.height);
     }
 
     void Grid::copyDataFromRawBuffer(const std::uint8_t* data, const size_t size){
-        //convert buffer size to iterator size (one piece of information is 4 bytes or 1 std::float32_t long)
-        size_t size_it = size / sizeof(std::float32_t);
+        if(size == m_size.width * m_size.height * sizeof(std::float32_t)){
+            for(size_t y = 0; y < m_size.height; y++){
+                for(size_t x = 0; x < m_size.width; x++){
+                    std::memcpy(&m_valueGrid.at(x).at(y), &data[((y * m_size.width) + x) * 4], sizeof(std::float32_t));
+                }
+            }
+        }
+    }
 
-        for(size_t i = 0; i < size_it && i < m_size.width * m_size.height; i++){
-            int x = (int) (i / m_size.width);
-            int y = i % m_size.height;
+    void Grid::interpolate(){
+        for(size_t x = 0; x < m_size.width; x++){
+            for(size_t y = 0; y < m_size.height; y++){
+                size_t x_it = x * (interpol + 1);
+                size_t y_it = y * (interpol + 1);
 
-            //copy four bytes of data from the buffer to the valueGrid at (x,y) and bitcast it to a std::float32_t
-            std::memcpy(&m_valueGrid.at(x).at(y), &data[i * 4], sizeof(std::float32_t));
+                m_values.at(x_it).at(y_it) = m_valueGrid.at(x).at(y);
+            }
+        }
+        // |
+        for(size_t x = 0; x < m_size.width; x++){
+            for(size_t y = 0; y < m_size.height - 1; y++){
+                for(size_t i = 0; i < interpol; i++){
+                    std::float32_t temp1 = m_valueGrid.at(x).at(y);
+                    std::float32_t temp2 = m_valueGrid.at(x).at(y + 1);
+                    std::float32_t diff = (std::float32_t) (i + 1) / (interpol + 1);
+
+                    size_t x_it = x * (interpol + 1);
+                    size_t y_it = y * (interpol + 1) + (i + 1);
+                    m_values.at(x_it).at(y_it) = lerp(0.f, 1.f, temp1, temp2, diff);
+                }
+            }
+        }
+
+        // -----
+        for(size_t y = 0; y < m_sizeInterpolated.height; y++){
+            for(size_t x = 0; x < m_size.width - 1; x++){
+                size_t x_it = x * (interpol + 1);
+
+                for(size_t i = 0; i < interpol; i++){
+                    std::float32_t temp1 = m_values.at(x_it).at(y);
+                    std::float32_t temp2 = m_values.at(x_it + interpol + 1).at(y);
+
+                    std::float32_t diff = (std::float32_t) (i + 1) / (interpol + 1);
+
+                    m_values.at(x_it + i + 1).at(y) = lerp(0.f, 1.f, temp1, temp2, diff);
+                }
+            }
         }
     }
 
     void Grid::render(sf::RenderWindow* window, const unsigned int width, const unsigned int height){
-        /*float x_size = width / m_size.width;
-        float y_size = height / m_size.height; 
+        float x_size = (float) width / m_sizeInterpolated.width;
+        float y_size = (float) height / m_sizeInterpolated.height;
+        sf::Vector2f size(x_size, y_size);
 
+        for(size_t x = 0; x < m_sizeInterpolated.width; x++){
+            for(size_t y = 0; y < m_sizeInterpolated.height; y++){
+                sf::RectangleShape rect;
+                rect.setSize(size);
+                rect.setPosition(sf::Vector2f(x * x_size, y * y_size));
+                rect.setFillColor(hsv(
+                                    lerp(   17, 
+                                            30, 
+                                            240, 
+                                            0, 
+                                            m_values.at(x).at(y)
+                                        ), 
+                                    1, 
+                                    1
+                                ));
+
+                window->draw(rect);
+            }
+        }
+
+        /*float x_size = (float) width / m_size.width;
+        float y_size = (float) height / m_size.height;
         sf::Vector2f size(x_size, y_size);
 
         for(size_t x = 0; x < m_size.width; x++){
