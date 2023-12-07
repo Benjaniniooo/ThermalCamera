@@ -3,6 +3,7 @@
 namespace Application{
     Application::Application(){
         m_grid.create(32, 24);
+        m_selectedSensor = 0;
     }
 
     bool Application::create(const unsigned int width, const unsigned int height, const std::string title){
@@ -52,6 +53,18 @@ namespace Application{
         if(m_showSettingsPage){
             ImGui::Begin("Settings", &m_showSettingsPage);
 
+            ImGui::SeparatorText("Sensor");
+        
+            if(ImGui::RadioButton("MLX90640", &m_selectedSensor, 0)){
+                m_grid.create(32, 24);
+            }
+            if(ImGui::RadioButton("AMG8833", &m_selectedSensor, 1)){
+                m_grid.create(8, 8);
+            }
+            if(ImGui::RadioButton("MockServer", &m_selectedSensor, 2)){
+                m_grid.create(16, 16);
+            }
+
             ImGui::SeparatorText("Network");            
 
             ImGui::InputTextWithHint("IP Address", "localhost or 192.168.4.1", &m_network.m_address);
@@ -75,6 +88,8 @@ namespace Application{
 
             ImGui::End();
         }
+
+        ImGui::ShowDemoWindow();
 
         m_window.clear();
         

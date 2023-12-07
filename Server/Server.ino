@@ -5,9 +5,9 @@ Network::Network net;
 
 const int delayTime = 250;
 
-#define MLX_90640
+//#define MLX_90640
 //#define AMG_88xx
-//#define MOCK_SERVER
+#define MOCK_SERVER
 
 #ifdef MLX_90640
     #include "./src/MLX90640.hpp"
@@ -53,6 +53,9 @@ const int delayTime = 250;
     const int min_temp = 17;
     const int max_temp = 32;
 
+    int iter = 0;
+    const int amount = 4;
+
     void initialise(){
         if(!net.createAP(F("MOCKSERVER"), F("MOCKSERVER")))
             exit(0);
@@ -61,9 +64,23 @@ const int delayTime = 250;
     void run(){
         for(size_t x = 0; x < pixel_width; x++){
             for(size_t y = 0; y < pixel_height; y++){
-                //pixel[y * pixel_width + x] = map(random(255), 0, 255, min_temp, max_temp);
+              if(iter > amount * 4){
+                pixel[y * pixel_width + x] = map(random(255), 0, 255, min_temp, max_temp);
+              }else if(iter > amount * 3){
                 pixel[y * pixel_width + x] = (float) (x * y) / (pixel_width * pixel_height) * 255;
+              }else if(iter > amount * 2){
+                pixel[y * pixel_width + x] = (float) (x) / (pixel_width) * 255;
+              }else if(iter > amount){
+                pixel[y * pixel_width + x] = (float) (y) / (pixel_height) * 255;
+              }else{
+                pixel[y * pixel_width + x] = 255;
+              }
             }
+        }
+
+        iter++;
+        if(iter > amount * 5){
+          iter = 0;
         }
 
         net.sentPacket(pixel, sizeof(float) * pixel_width * pixel_height);

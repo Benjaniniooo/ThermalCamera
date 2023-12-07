@@ -39,6 +39,7 @@ namespace Application{
             Grid::Grid m_grid;
 
             //IMGUI
-            bool m_showSettingsPage;            
+            bool m_showSettingsPage;   
+            int m_selectedSensor;         
     };
 }
