@@ -64,22 +64,32 @@ const int delayTime = 250;
     void run(){
         for(size_t x = 0; x < pixel_width; x++){
             for(size_t y = 0; y < pixel_height; y++){
-              if(iter > amount * 4){
+              if(iter > amount * 9){
+                pixel[y * pixel_width + x] = map(random(255), 0, 255, 0, 255);
+              }else if(iter > amount * 8){
+                pixel[y * pixel_width + x] = map(x * y, 0, pixel_width * pixel_height, 0, 255);
+              }else if(iter > amount * 7){
+                pixel[y * pixel_width + x] = map(x, 0, pixel_width, 0, 255);
+              }else if(iter > amount * 6){
+                pixel[y * pixel_width + x] = map(y, 0, pixel_height, 0, 255);
+              }else if(iter > amount * 5){
+                pixel[y * pixel_width + x] = 0;
+              }else if(iter > amount * 4){
                 pixel[y * pixel_width + x] = map(random(255), 0, 255, min_temp, max_temp);
               }else if(iter > amount * 3){
-                pixel[y * pixel_width + x] = (float) (x * y) / (pixel_width * pixel_height) * 255;
+                pixel[y * pixel_width + x] = map(x * y, 0, pixel_width * pixel_height, min_temp, max_temp);
               }else if(iter > amount * 2){
-                pixel[y * pixel_width + x] = (float) (x) / (pixel_width) * 255;
+                pixel[y * pixel_width + x] = map(x, 0, pixel_width, min_temp, max_temp);
               }else if(iter > amount){
-                pixel[y * pixel_width + x] = (float) (y) / (pixel_height) * 255;
+                pixel[y * pixel_width + x] = map(y, 0, pixel_height, min_temp, max_temp);
               }else{
-                pixel[y * pixel_width + x] = 255;
+                pixel[y * pixel_width + x] = min_temp;
               }
             }
         }
 
         iter++;
-        if(iter > amount * 5){
+        if(iter > amount * 10){
           iter = 0;
         }
 

@@ -33,8 +33,48 @@ float lerp(float x1, float x2, float y1, float y2, float v){
     return (v - x1) * (y2 - y1) / (x2 - x1) + y1;
 }
 
+sf::Color color(std::float32_t temp, float min_temp, float max_temp){
+    float j = lerp(min_temp, max_temp, 0, 180, temp);
+
+    float r, g, b;
+
+    if(j >= 180){
+        return sf::Color(255, 255, 255);
+    }else if(j > 150){
+        r = 255;
+        g = lerp(150, 180, 235, 255, j);
+        b = lerp(150, 180, 0, 255, j);
+    }else if(j > 120){
+        r = 255;
+        g = lerp(120, 150, 60, 235, j);
+        b = 0;
+    }else if(j > 90){
+        r = 255;
+        g = lerp(90, 120, 0, 60, j);
+        b = lerp(90, 120, 10, 0, j);
+    }else if(j > 60){
+        r = lerp(60, 90, 120, 255, j);
+        g = 0;
+        b = lerp(60, 90, 80, 10, j);
+    }else if(j > 30){
+        r = lerp(30, 60, 0, 120, j);
+        g = 0;
+        b = lerp(30, 60, 140, 80, j);
+    }else{
+        r = 0;
+        g = 0;
+        b = lerp(0, 30, 20, 140, j);
+    }
+
+    return sf::Color(r, g, b);
+}
+
 namespace Grid{
     Grid::Grid(){
+        min_temp = 17;
+        max_temp = 30;
+
+        alternativeColoring = false;
     }
 
     void Grid::create(const unsigned int width, const unsigned int height){
@@ -114,17 +154,11 @@ namespace Grid{
                 sf::RectangleShape rect;
                 rect.setSize(size);
                 rect.setPosition(sf::Vector2f(x * x_size, y * y_size));
-                rect.setFillColor(hsv(
-                                    lerp(   17, 
-                                            30, 
-                                            240, 
-                                            0, 
-                                            m_values.at(x).at(y)
-                                        ), 
-                                    1, 
-                                    1
-                                ));
-
+                if(!alternativeColoring){
+                    rect.setFillColor(hsv(lerp(min_temp, max_temp, 240, 0, m_values.at(x).at(y)), 1, 1));
+                }else{
+                    rect.setFillColor(color(m_values.at(x).at(y), min_temp, max_temp));
+                }
                 window->draw(rect);
             }
         }

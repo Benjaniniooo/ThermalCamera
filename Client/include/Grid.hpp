@@ -9,8 +9,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <iostream>
-
 namespace Grid
 {
     typedef struct{
@@ -34,6 +32,11 @@ namespace Grid
             void interpolate();
 
             void render(sf::RenderWindow* window, const unsigned int width, const unsigned int height);
+
+            float min_temp;
+            float max_temp;
+
+            bool alternativeColoring;
 
         private:
             std::vector<std::vector<std::float32_t>> m_valueGrid;

@@ -53,7 +53,7 @@ namespace Application{
         if(m_showSettingsPage){
             ImGui::Begin("Settings", &m_showSettingsPage);
 
-            ImGui::SeparatorText("Sensor");
+            ImGui::SeparatorText("Sensoren");
         
             if(ImGui::RadioButton("MLX90640", &m_selectedSensor, 0)){
                 m_grid.create(32, 24);
@@ -65,31 +65,36 @@ namespace Application{
                 m_grid.create(16, 16);
             }
 
-            ImGui::SeparatorText("Network");            
+            ImGui::SeparatorText("Netzwerk");            
 
-            ImGui::InputTextWithHint("IP Address", "localhost or 192.168.4.1", &m_network.m_address);
+            ImGui::InputTextWithHint("IP Addresse", "localhost oder 192.168.4.1", &m_network.m_address);
             ImGui::InputInt("Port", (int*) &m_network.m_port, true);
 
-            if(ImGui::Button("Connect")){
+            if(ImGui::Button("Verbinden")){
                 m_network.connect();
             }
             ImGui::SameLine();
-            if(ImGui::Button("Disconnect")){
+            if(ImGui::Button("Trennen")){
                 m_network.disconnect();
             }
             
             if(m_network.m_connectionStatus == Network::CONNECTION_STATUS::Connected){
-                ImGui::Text("Connected");
+                ImGui::Text("Verbunden");
             }else if(m_network.m_connectionStatus == Network::CONNECTION_STATUS::Disconnected){
-                ImGui::Text("Disconnected");
+                ImGui::Text("Getrennt");
             }
 
             ImGui::Text(std::to_string(m_network.m_received_bytes).c_str());
 
+            ImGui::SeparatorText("Temperaturen");
+
+            ImGui::InputFloat("Min.", &m_grid.min_temp);
+            ImGui::InputFloat("Max.", &m_grid.max_temp);
+
+            ImGui::Checkbox("Alternative Farbgebung", &m_grid.alternativeColoring);
+
             ImGui::End();
         }
-
-        ImGui::ShowDemoWindow();
 
         m_window.clear();
         
