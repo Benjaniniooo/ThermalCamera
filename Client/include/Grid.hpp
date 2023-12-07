@@ -42,6 +42,6 @@ namespace Grid
             std::vector<std::vector<std::float32_t>> m_values;
             ARRAY_SIZE m_sizeInterpolated;
 
-            const unsigned int interpol = 8;
+            const unsigned int interpol = 20;
     };
 }

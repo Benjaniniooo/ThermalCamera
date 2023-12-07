@@ -45,15 +45,12 @@ namespace Application{
     void Application::run(){
         if(ImGui::BeginMainMenuBar()){
             ImGui::MenuItem("Settings", NULL, &m_showSettingsPage);
-            ImGui::MenuItem("Rendering", NULL, &m_showRenderPage);
 
             ImGui::EndMainMenuBar();
         }
 
         if(m_showSettingsPage){
             ImGui::Begin("Settings", &m_showSettingsPage);
-
-            ImGui::SeparatorText("Sensors");
 
             ImGui::SeparatorText("Network");            
 
@@ -70,28 +67,26 @@ namespace Application{
             
             if(m_network.m_connectionStatus == Network::CONNECTION_STATUS::Connected){
                 ImGui::Text("Connected");
-
-                if(m_network.receive()){
-                    m_grid.copyDataFromRawBuffer(m_network.m_buffer, m_network.m_received_bytes);
-                    m_grid.interpolate();
-                }
-                sf::sleep(sf::milliseconds(50));
             }else if(m_network.m_connectionStatus == Network::CONNECTION_STATUS::Disconnected){
                 ImGui::Text("Disconnected");
             }
 
             ImGui::Text(std::to_string(m_network.m_received_bytes).c_str());
 
-            ImGui::SeparatorText("Delay Time");
-
             ImGui::End();
         }
 
-        ImGui::ShowDemoWindow();
-
         m_window.clear();
         
-        m_grid.render(&m_window, m_width, m_height);
+        if(m_network.m_connectionStatus == Network::CONNECTION_STATUS::Connected){
+            if(m_network.receive()){
+                m_grid.copyDataFromRawBuffer(m_network.m_buffer, m_network.m_received_bytes);
+                m_grid.interpolate();
+            }
+            m_grid.render(&m_window, m_width, m_height);
+            sf::sleep(sf::milliseconds(50));
+        }
+        
         ImGui::SFML::Render(m_window);
 
         m_window.display();          
