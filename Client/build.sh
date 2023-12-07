@@ -43,7 +43,7 @@ if \
     \
     -lsfml-audio -lsfml-network -lsfml-graphics -lsfml-window -lsfml-system \
     \
-    -lGL -lpthread \
+    -lGL -lpthread -O4\
     \
     -I ./include/ \
     ./include/*.cpp \

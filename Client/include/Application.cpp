@@ -45,13 +45,13 @@ namespace Application{
 
     void Application::run(){
         if(ImGui::BeginMainMenuBar()){
-            ImGui::MenuItem("Settings", NULL, &m_showSettingsPage);
+            ImGui::MenuItem("Einstellungen", NULL, &m_showSettingsPage);
 
             ImGui::EndMainMenuBar();
         }
 
         if(m_showSettingsPage){
-            ImGui::Begin("Settings", &m_showSettingsPage);
+            ImGui::Begin("Einstellungen", &m_showSettingsPage);
 
             ImGui::SeparatorText("Sensoren");
         
