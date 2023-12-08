@@ -55,13 +55,13 @@ namespace Application{
 
             ImGui::SeparatorText("Sensoren");
         
-            if(ImGui::RadioButton("MLX90640", &m_selectedSensor, 0)){
+            if(ImGui::RadioButton("MLX90640 (32x24)", &m_selectedSensor, 0)){
                 m_grid.create(32, 24);
             }
-            if(ImGui::RadioButton("AMG8833", &m_selectedSensor, 1)){
+            if(ImGui::RadioButton("AMG8833 (8x8)", &m_selectedSensor, 1)){
                 m_grid.create(8, 8);
             }
-            if(ImGui::RadioButton("MockServer", &m_selectedSensor, 2)){
+            if(ImGui::RadioButton("MockServer (16x16)", &m_selectedSensor, 2)){
                 m_grid.create(16, 16);
             }
 
